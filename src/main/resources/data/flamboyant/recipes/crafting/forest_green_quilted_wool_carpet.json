@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "carpet",
+  "ingredients": [
+    {
+      "item": "flamboyant:forest_green_quilted_wool"
+    },
+    {
+      "item": "flamboyant:forest_green_quilted_wool"
+    }
+  ],
+  "result": {
+    "item": "flamboyant:forest_green_quilted_wool_carpet",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quarkqs"
+    }
+  ]
+}

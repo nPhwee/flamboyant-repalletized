@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wool",
+  "pattern": [
+    " X ",
+    "YYY",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:string"
+    },
+    "Y": {
+      "item": "flamboyant:forest_green_wool"
+    }
+  },
+  "result": {
+    "item": "flamboyant:forest_green_quilted_wool",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quarkqs"
+    }
+  ]
+}
