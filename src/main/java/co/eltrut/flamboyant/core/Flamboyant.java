@@ -1,5 +1,6 @@
 package co.eltrut.flamboyant.core;
 
+import co.eltrut.flamboyant.core.other.BetterEndCompat;
 import co.eltrut.flamboyant.core.other.FlamboyantCompat;
 import co.eltrut.flamboyant.core.registry.FlamboyantBlocks;
 import co.eltrut.flamboyant.core.registry.FlamboyantItems;
@@ -9,7 +10,6 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -51,6 +51,7 @@ public class Flamboyant {
         FlamboyantBlocks.BLOCK_ITEMS.register(modEventBus);
         FlamboyantItems.ITEMS.register(modEventBus);
         FlamboyantTileEntities.BLOCK_ENTITIES.register(modEventBus);
+        BetterEndCompat.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -78,6 +79,7 @@ public class Flamboyant {
             FlamboyantBlocks.STAINED_GLASS.forEach(ro -> event.accept(ro.get()));
             FlamboyantBlocks.STAINED_GLASS_PANES.forEach(ro -> event.accept(ro.get()));
             FlamboyantBlocks.BEDS.forEach(ro -> event.accept(ro.get()));
+            BetterEndCompat.HYDRALUX_PETAL_BLOCKS.forEach(ro -> event.accept(ro.get()));
         }
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             FlamboyantItems.DYES.forEach(ro -> event.accept(ro.get()));

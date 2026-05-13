@@ -12,6 +12,10 @@
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "forge:mod_loaded",
+          "modid": "quarkqs"
         }
       ]
     }

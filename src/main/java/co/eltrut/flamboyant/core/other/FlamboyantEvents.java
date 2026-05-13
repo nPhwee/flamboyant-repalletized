@@ -7,6 +7,7 @@ import co.eltrut.flamboyant.common.color.FDyeColors;
 import co.eltrut.flamboyant.common.items.FDyeItem;
 import co.eltrut.flamboyant.core.Flamboyant;
 import co.eltrut.flamboyant.core.registry.FlamboyantBlocks;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -18,9 +19,12 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.WoolCarpetBlock;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -30,6 +34,26 @@ import java.lang.reflect.Method;
 public class FlamboyantEvents {
 
     
+    /**
+     * Suppress loot table log spam for quilted wool blocks when quarkqs is not
+     * loaded. The JSON files exist on disk unconditionally, so Forge attempts to
+     * load and validate them regardless. When the blocks aren't registered (no
+     * quarkqs), Forge logs a warning for every orphaned table. We replace those
+     * tables with the empty built-in table to silence the warnings.
+     */
+    @SubscribeEvent
+    public static void onLootTableLoad(LootTableLoadEvent event) {
+        if (ModList.get().isLoaded("quarkqs")) return;
+
+        ResourceLocation name = event.getName();
+        if (!Flamboyant.MOD_ID.equals(name.getNamespace())) return;
+
+        String path = name.getPath(); // e.g. "blocks/amaranth_quilted_wool"
+        if (path.contains("_quilted_wool")) {
+            event.setTable(LootTable.EMPTY);
+        }
+    }
+
     private static void llamaSetSwag(Llama llama, DyeColor color) {
         try {
             Method m = Llama.class.getDeclaredMethod("setSwag", DyeColor.class);

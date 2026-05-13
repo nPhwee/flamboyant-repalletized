@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hydralux_petal_block",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "betterend:hydralux_petal_block"
+    },
+    "X": {
+      "item": "flamboyant:amber_dye"
+    }
+  },
+  "result": {
+    "item": "betterend:amber_hydralux_petal_block",
+    "count": 8
+  }
+}

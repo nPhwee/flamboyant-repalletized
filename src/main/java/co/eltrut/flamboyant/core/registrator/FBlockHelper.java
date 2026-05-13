@@ -34,7 +34,10 @@ public class FBlockHelper {
         List<RegistryObject<Block>> list = new ArrayList<>();
         for (FDyeColor color : FDyeColors.COLORS) {
             String name = color.getSerializedName() + suffix;
-            RegistryObject<Block> ro = blockRegister.register(name, blockSupplier);
+            // Wrap in a fresh lambda per registration so each entry gets its own
+            // distinct Supplier instance — required for Forge's intrusive holder
+            // tracking to bind a separate holder for every registered block.
+            RegistryObject<Block> ro = blockRegister.register(name, () -> blockSupplier.get());
             itemRegister.register(name, () -> new BlockItem(ro.get(), new Item.Properties()));
             list.add(ro);
         }
@@ -45,14 +48,13 @@ public class FBlockHelper {
         List<RegistryObject<Block>> list = new ArrayList<>();
         for (FDyeColor color : FDyeColors.COLORS) {
             String name = color.getSerializedName() + "_bed";
-            RegistryObject<Block> ro = blockRegister.register(name, () ->
-                new FBedBlock(color, BlockBehaviour.Properties
-                    .of()
-                    .mapColor(s -> s.getValue(FBedBlock.PART) == BedPart.FOOT ? color.getMapColor() : MapColor.WOOL)
-                    .sound(SoundType.WOOD)
-                    .strength(0.2F)
-                    .noOcclusion())
-            );
+            BlockBehaviour.Properties props = BlockBehaviour.Properties
+                .of()
+                .mapColor(s -> s.getValue(FBedBlock.PART) == BedPart.FOOT ? color.getMapColor() : MapColor.WOOL)
+                .sound(SoundType.WOOD)
+                .strength(0.2F)
+                .noOcclusion();
+            RegistryObject<Block> ro = blockRegister.register(name, () -> new FBedBlock(props));
             itemRegister.register(name, () -> new FBedItem(ro.get(), new Item.Properties().stacksTo(1)));
             FlamboyantAtlas.addBedInfo(color.getTranslationKey());
             list.add(ro);

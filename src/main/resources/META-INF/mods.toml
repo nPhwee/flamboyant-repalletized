@@ -4,7 +4,7 @@ license="GNU GPL 3.0"
 issueTrackerURL=""
 [[mods]]
 modId="flamboyant"
-version="1.1.1"
+version="1.2.0"
 displayName="Flamboyant Repalletized"
 logoFile="flamboyant.png"
 credits="Eltrut for porting the mod to 1.16.5 and 1.18.2"
@@ -35,4 +35,12 @@ Ported to 1.20.1 by Phwee
     versionRange="[1.0.0,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.flamboyant]]
+    modId="betterend"
+    mandatory=false
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
 

@@ -1,0 +1,6 @@
+{
+  "parent": "betterend:block/hydralux_petal_block",
+  "textures": {
+    "all": "betterend:block/sky_blue_hydralux_petal_block"
+  }
+}
